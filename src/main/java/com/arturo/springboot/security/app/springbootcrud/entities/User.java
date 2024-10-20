@@ -1,5 +1,7 @@
 package com.arturo.springboot.security.app.springbootcrud.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,6 +33,7 @@ public class User {
 
   @Column
   @NotBlank
+  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // this make password not visible in postman
   private String password;
 
   @ManyToMany
