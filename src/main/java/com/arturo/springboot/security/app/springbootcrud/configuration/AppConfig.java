@@ -1,4 +1,4 @@
-package com.arturo.springboot.security.app.springbootcrud;
+package com.arturo.springboot.security.app.springbootcrud.configuration;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;

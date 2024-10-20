@@ -44,6 +44,7 @@ public class User {
   private List<Role> roles;
 
   @Transient
+  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // this make password not visible in postman
   private boolean admin;
 
   private boolean enabled;

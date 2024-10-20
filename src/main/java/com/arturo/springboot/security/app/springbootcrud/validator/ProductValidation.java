@@ -1,4 +1,4 @@
-package com.arturo.springboot.security.app.springbootcrud;
+package com.arturo.springboot.security.app.springbootcrud.validator;
 
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
