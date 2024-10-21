@@ -17,6 +17,14 @@ public class SpringSecurityConfig {
     return new BCryptPasswordEncoder();
   }
 
+  /**
+   * This method is used to configure the security of the application giving access to specific endpoints
+   * according if they are authenticated or not.
+   * @param http
+   * @return
+   * @throws Exception
+   */
+
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     return http.authorizeHttpRequests( auth ->
