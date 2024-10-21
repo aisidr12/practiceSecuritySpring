@@ -1,5 +1,6 @@
 package com.arturo.springboot.security.app.springbootcrud.entities;
 
+import com.arturo.springboot.security.app.springbootcrud.validation.ExistByUsername;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
@@ -31,6 +32,7 @@ public class User {
   @Column(unique = true)
   @NotBlank
   @Size(min = 4, max = 20)
+  @ExistByUsername
   private String username;
 
   @Column
