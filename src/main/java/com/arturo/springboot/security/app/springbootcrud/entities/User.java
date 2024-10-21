@@ -1,6 +1,6 @@
 package com.arturo.springboot.security.app.springbootcrud.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,7 +16,9 @@ import jakarta.persistence.Transient;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Table(name = "users")
 @Entity
@@ -36,6 +38,7 @@ public class User {
   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // this make password not visible in postman
   private String password;
 
+  @JsonIgnoreProperties({"roles","handler","hibernateLazyInitializer"})
   @ManyToMany
   @JoinTable(name = "users_roles",
       joinColumns = @JoinColumn(name = "user_id"),
@@ -48,6 +51,16 @@ public class User {
   private boolean admin;
 
   private boolean enabled;
+
+  /*
+  In case we need to create the many-to-many relation we should implement also in  Roles class
+  the many to many.
+  Also, we have to use the constructor to create the array
+   */
+
+  public User() {
+    this.roles = new ArrayList<>();
+  }
 
   @PrePersist
   public void prePersist() {
@@ -100,5 +113,22 @@ public class User {
 
   public void setEnabled(boolean enabled) {
     this.enabled = enabled;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    User user = (User) o;
+    return Objects.equals(id, user.id) && Objects.equals(username, user.username);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, username);
   }
 }
