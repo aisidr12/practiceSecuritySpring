@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ExistByUsername {
 
-    String message() default "ya existe en este username!";
+    String message() default "Already exists";
 
     Class<?>[] groups() default {};
 
