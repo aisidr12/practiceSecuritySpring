@@ -31,6 +31,9 @@ public class Role {
     users = new ArrayList<>();
   }
 
+  //FIXME remember the getter and setter for the users list is not generated
+  //because in the json would appear an then the information would be recursive
+
   public Long getId() {
     return id;
   }

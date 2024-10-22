@@ -37,12 +37,18 @@ public class UserServiceImpl implements UserService {
     Optional<Role> roleUser = roleRepository.findByName("ROLE_USER");
     List<Role> roles = new ArrayList<>();
     roleUser.ifPresent(roles::add);
-    if(user.isAdmin()){
+    if (user.isAdmin()) {
       Optional<Role> roleAdmin = roleRepository.findByName("ROLE_ADMIN");
       roleAdmin.ifPresent(roles::add);
     }
     user.setRoles(roles);
     user.setPassword(passwordEncoder.encode(user.getPassword()));
     return userRepository.save(user);
+  }
+
+  @Override
+  @Transactional(readOnly = true)
+  public boolean existsByUsername(String username) {
+    return userRepository.existsByUsername(username);
   }
 }

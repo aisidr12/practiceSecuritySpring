@@ -56,12 +56,15 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
   protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
       FilterChain chain, Authentication authResult) throws IOException, ServletException {
 
-    User user = (User) authResult.getPrincipal();
+    org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) authResult.getPrincipal();
     String username = user.getUsername();
 
     Collection<? extends GrantedAuthority> roles = authResult.getAuthorities();
 
-    Claims claims = Jwts.claims().add("authorities", roles).build();
+    Claims claims = Jwts.claims()
+        .add("authorities", roles)
+        .add("username", username)
+        .build();
 
     String token = Jwts.builder()
         .subject(username)
@@ -94,7 +97,5 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     response.getWriter().write(new ObjectMapper().writeValueAsString(body));
     response.setContentType("application/json");
     response.setStatus(401);
-
-
   }
 }

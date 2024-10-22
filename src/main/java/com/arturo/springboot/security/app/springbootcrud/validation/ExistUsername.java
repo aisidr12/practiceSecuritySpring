@@ -1,7 +1,7 @@
 package com.arturo.springboot.security.app.springbootcrud.validation;
 
-import com.arturo.springboot.security.app.springbootcrud.entities.User;
 import com.arturo.springboot.security.app.springbootcrud.repositories.UserRepository;
+import com.arturo.springboot.security.app.springbootcrud.services.UserService;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import java.util.Optional;
@@ -10,18 +10,18 @@ import org.springframework.stereotype.Component;
 @Component
 public class ExistUsername implements ConstraintValidator<ExistByUsername, String> {
 
-  private final UserRepository userRepository;
+  private final UserService userService;
 
-  public ExistUsername(UserRepository userRepository) {
-    this.userRepository = userRepository;
+  public ExistUsername(UserService userService) {
+    this.userService = userService;
   }
-
 
   @Override
-  public boolean isValid(String value, ConstraintValidatorContext context) {
-    return !Optional.ofNullable(userRepository.findByUsername(value)).isPresent();
-
+  public boolean isValid(String username, ConstraintValidatorContext context) {
+    if(userService == null){
+      return true;
+    }
+    boolean existe = !userService.existsByUsername(username);
+    return existe;
   }
-
-
 }
