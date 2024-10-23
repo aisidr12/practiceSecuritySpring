@@ -21,9 +21,13 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+/**
+ * This class is responsible for authenticating the user and generating the JWT token
+ * Basically, this class generate tokens according to the user credentials that is passed in the request
+ */
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
-  private AuthenticationManager authenticationManager;
+  private final AuthenticationManager authenticationManager;
   private static final Key SECRET_KEY = Jwts.SIG.HS256.key().build();
 
   public JwtAuthenticationFilter(AuthenticationManager authenticationManager) {
