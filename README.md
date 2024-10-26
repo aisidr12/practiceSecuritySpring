@@ -21,7 +21,24 @@ There is Postman collection in the project which is used to test the project.
 
 Remember to have up the dabase with the credentials in the application.properties file.
 
+# To Start the Project
+## requirements
 
+- you must have maven installed
+- Java 17
+- docker installed
+
+## Using Docker
+- remember to modify application.properties file with the database credentials
+- mvn clean install
+- docker build images -t spring-security-app .
+- docker run -p 8080:8080 spring-security-app
+
+# To run the project with docker-compose
+- Clone the project
+- Use mvn clean install to build the project
+- use docker-compose build to build the docker image
+- use docker-up to start the project
 
 
 
