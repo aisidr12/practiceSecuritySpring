@@ -1,6 +1,7 @@
 package com.arturo.springboot.security.app.springbootcrud.security;
 
 import com.arturo.springboot.security.app.springbootcrud.security.filter.JwtAuthenticationFilter;
+import com.arturo.springboot.security.app.springbootcrud.security.filter.JwtValidationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -47,6 +48,7 @@ public class SpringSecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/api/users/register").permitAll()
                 .anyRequest().authenticated())
         .addFilter(new JwtAuthenticationFilter(authenticationManager()))
+        .addFilter(new JwtValidationFilter(authenticationManager()))
         .csrf(config -> config.disable())
         .sessionManagement(
             management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

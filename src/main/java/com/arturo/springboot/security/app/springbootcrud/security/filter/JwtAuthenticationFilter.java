@@ -28,7 +28,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
   private final AuthenticationManager authenticationManager;
-  private static final Key SECRET_KEY = Jwts.SIG.HS256.key().build();
+  public static final Key SECRET_KEY = Jwts.SIG.HS256.key().build();
 
   public JwtAuthenticationFilter(AuthenticationManager authenticationManager) {
     this.authenticationManager = authenticationManager;
@@ -66,7 +66,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     Collection<? extends GrantedAuthority> roles = authResult.getAuthorities();
 
     Claims claims = Jwts.claims()
-        .add("authorities", roles)
+        .add("authorities", new ObjectMapper().writeValueAsString(roles))
         .add("username", username)
         .build();
 
