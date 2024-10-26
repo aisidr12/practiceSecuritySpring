@@ -40,6 +40,8 @@ public class UserController {
   }
 
   @PostMapping("/register")
+  //@PreAuthorize("hasRole('ADMIN')")
+  //@PreAuthorize("hasAnyRole('ADMIN','USER')")
   public ResponseEntity<?> register(@Valid @RequestBody User user,BindingResult result) {
     user.setAdmin(false);
     return create(user,result);
